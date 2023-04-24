@@ -10,7 +10,7 @@ import numpy as np
 from starter.train_model import cat_features
 
 # Optional: implement hyperparameter tuning.
-def train_model(X_train, y_train):
+def model_train(X_train, y_train):
     """
     Trains a machine learning model and returns it.
 

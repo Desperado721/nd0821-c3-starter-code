@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from starter.ml.model import train_model, compute_model_metrics,inference
+from starter.ml.model import compute_model_metrics,inference
 from starter.ml.data import process_data
 from starter.train_model import cat_features
 import numpy as np

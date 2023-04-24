@@ -6,7 +6,7 @@ sys.path.append("/Users/jielyu/udacity/mle/nd0821-c3-starter-code/starter/")
 
 from sklearn.model_selection import train_test_split
 from starter.ml.data import process_data
-from starter.ml.model import train_model, inference, compute_model_metrics
+from starter.ml.model import model_train, inference, compute_model_metrics
 
 
 # Add the necessary imports for the starter code.
@@ -48,7 +48,7 @@ X_test, y_test, _, _ = process_data(
 
 
 # Train and save a model.
-lr = train_model(X_train, y_train)
+lr = model_train(X_train, y_train)
 y_preds = inference(lr, X_test)
 precision, recall, fbeta = compute_model_metrics(y_test, y_preds)
 print(
