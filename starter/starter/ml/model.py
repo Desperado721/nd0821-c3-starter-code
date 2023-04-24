@@ -1,21 +1,14 @@
+import sys
+sys.path.append("/Users/jielyu/udacity/mle/nd0821-c3-starter-code/starter")
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.linear_model import LogisticRegression
 import pandas as pd
 from starter.ml.data import process_data_with_one_fixed_feature
 import pickle
 import numpy as np
+from starter.train_model import cat_features
 
 # Optional: implement hyperparameter tuning.
-cat_features = [
-    "workclass",
-    "education",
-    "marital-status",
-    "occupation",
-    "relationship",
-    "race",
-    "sex",
-    "native-country",
-]
 def train_model(X_train, y_train):
     """
     Trains a machine learning model and returns it.
