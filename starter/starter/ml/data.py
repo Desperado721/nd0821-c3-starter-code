@@ -1,5 +1,7 @@
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
+import pickle
+import copy
 
 
 def process_data(
@@ -58,6 +60,13 @@ def process_data(
         lb = LabelBinarizer()
         X_categorical = encoder.fit_transform(X_categorical)
         y = lb.fit_transform(y.values).ravel()
+        # save OneHotEncoder and LabelBinarizer for inference
+        with open("./encoder.pkl", "wb") as f: 
+            pickle.dump(encoder, f)
+        
+        with open("./lb.pkl", "wb") as f:
+            pickle.dump(lb, f)
+
     else:
         X_categorical = encoder.transform(X_categorical)
         try:
@@ -68,3 +77,27 @@ def process_data(
 
     X = np.concatenate([X_continuous, X_categorical], axis=1)
     return X, y, encoder, lb
+
+def process_data_with_one_fixed_feature(X, categorical_features=[], fixed_feature = None, label=None):
+    if label is not None:
+        y = X[label]
+        X = X.drop([label], axis=1)
+    else:
+        y = np.array([])
+    
+    encoder = pickle.load(open("./encoder.pkl", "rb"))
+    lb = pickle.load(open("./lb.pkl", "rb"))
+    # make sure the last feature is the fixed feature
+    categorical_features.remove(fixed_feature)
+    categorical_features.append(fixed_feature)
+    X_categorical = X[categorical_features].values
+    X_continuous = X.drop(*[categorical_features], axis=1)
+    X_categorical = encoder.transform(X_categorical)
+    try:
+        y = lb.transform(y.values).ravel()
+    # Catch the case where y is None because we're doing inference.
+    except AttributeError:
+        pass
+
+    X = np.concatenate([X_continuous, X_categorical], axis=1)
+    return X, y
