@@ -7,8 +7,19 @@ import pandas as pd
 from starter.ml.data import process_data_with_one_fixed_feature
 import pickle
 import numpy as np
-from starter.train_model import cat_features
+# from starter.train_model import cat_features
 
+
+cat_features = [
+    "workclass",
+    "education",
+    "marital-status",
+    "occupation",
+    "relationship",
+    "race",
+    "sex",
+    "native-country",
+]
 # Optional: implement hyperparameter tuning.
 def model_train(X_train, y_train):
     """
