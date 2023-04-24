@@ -7,7 +7,7 @@ import copy
 def process_data(
     X, categorical_features=[], label=None, training=True, encoder=None, lb=None
 ):
-    """ Process the data used in the machine learning pipeline.
+    """Process the data used in the machine learning pipeline.
 
     Processes the data using one hot encoding for the categorical features and a
     label binarizer for the labels. This can be used in either training or
@@ -61,9 +61,9 @@ def process_data(
         X_categorical = encoder.fit_transform(X_categorical)
         y = lb.fit_transform(y.values).ravel()
         # save OneHotEncoder and LabelBinarizer for inference
-        with open("./encoder.pkl", "wb") as f: 
+        with open("./encoder.pkl", "wb") as f:
             pickle.dump(encoder, f)
-        
+
         with open("./lb.pkl", "wb") as f:
             pickle.dump(lb, f)
 
@@ -78,13 +78,16 @@ def process_data(
     X = np.concatenate([X_continuous, X_categorical], axis=1)
     return X, y, encoder, lb
 
-def process_data_with_one_fixed_feature(X, categorical_features=[], fixed_feature = None, label=None):
+
+def process_data_with_one_fixed_feature(
+    X, categorical_features=[], fixed_feature=None, label=None
+):
     if label is not None:
         y = X[label]
         X = X.drop([label], axis=1)
     else:
         y = np.array([])
-    
+
     encoder = pickle.load(open("./encoder.pkl", "rb"))
     lb = pickle.load(open("./lb.pkl", "rb"))
     # make sure the last feature is the fixed feature
