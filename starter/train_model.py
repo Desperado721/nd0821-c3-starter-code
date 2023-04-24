@@ -13,7 +13,7 @@ from starter.ml.model import model_train, inference, compute_model_metrics
 
 # Add code to load in the data.
 data = pd.read_csv(
-    "/Users/jielyu/udacity/mle/nd0821-c3-starter-code/starter/data/census.csv"
+    "./starter/data/census.csv"
 )
 
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
